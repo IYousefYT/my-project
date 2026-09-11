@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mulanui Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+    <a class="logo" href="index.html">Mulanui <span>Services</span></a>
+    
+    <!-- الروابط الخاصة بالديسكطوب -->
+    <nav class="desktop-nav">
+        <a href="index.html">الرئيسية</a>
+        <a href="#games">الألعاب</a>
+        <a href="#services">الخدمات</a>
+    </nav>
+
+    <div class="auth-buttons desktop-auth" id="nav-auth-container">
+        <a href="html/auth/login.html" class="btn-login">تسجيل الدخول</a>
+        <a href="html/auth/register.html" class="btn-register">حساب جديد</a>
+    </div>
+
+    <!-- زر الثلاث شراط للموبايل -->
+    <button class="mobile-menu-btn" id="menu-toggle-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+<!-- القائمة الجانبية للموبايل -->
+<div class="mobile-menu-drawer" id="mobileDrawer">
+    <div class="mobile-menu-header">
+        <span>القائمة الرئيسية</span>
+        <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+    </div>
+    <div class="mobile-menu-content">
+        <div class="mobile-menu-links">
+            <a href="index.html">الرئيسية</a>
+            <a href="#games">الألعاب</a>
+            <a href="#services">الخدمات</a>
+        </div>
+        <div class="mobile-menu-auth" id="mobile-auth-container">
+            <a href="html/auth/login.html" class="btn-login">تسجيل الدخول</a>
+            <a href="html/auth/register.html" class="btn-register">حساب جديد</a>
+        </div>
+    </div>
+</div>
+<div class="sidebar-overlay" id="menuOverlay"></div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>أهلاََ بك في خدمات مولاني</h1>
+            <p>خدمات احترافية لألعاب القاتشا — من التفريم إلى إنجاز المهام وجمع الموارد. <br> نساعدك تطوّر حسابك وتوصل لأهدافك بسرعة وأمان.</p>
+            <a href="#games" class="btn-primary">استعرض الألعاب الآن</a>
+        </div>
+    </section>
+
+    <section id="games" class="container">
+        <h2>الألعاب المتاحة</h2>
+        <div class="grid" id="games-grid">
+            <p class="loading-text">جاري تحميل الألعاب...</p>
+        </div>
+    </section>
+
+    <section id="services" class="container">
+        <h2>الخدمات المتاحة</h2>
+        <div class="grid" id="services-grid">
+            <p class="loading-text">جاري تحميل الخدمات...</p>
+        </div>
+    </section>
+
+    <!-- تذييل الصفحة (Footer) -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">Mulanui <span>Services</span></div>
+                <p class="footer-desc">
+                    وجهتك الأولى لخدمات ألعاب القاتشا باحترافية وأمان تام. نساعدك في تطوير حسابك وإنجاز المهام بسرعة.
+                </p>
+            </div>
+            
+            <div class="footer-col">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="#games">الألعاب المتاحة</a></li>
+                    <li><a href="#services">الخدمات</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col" id="footer-auth-section">
+                <h3>حسابي</h3>
+                <ul>
+                    <li><a href="html/auth/login.html">تسجيل الدخول</a></li>
+                    <li><a href="html/auth/register.html">حساب جديد</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة &copy; 2026 <span>Mulanui Services</span></p>
+        </div>
+    </footer>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

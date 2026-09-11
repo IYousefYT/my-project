@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة جميع الحسابات - Mulanui Services</title>
+    <link rel="stylesheet" href="../../css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../../js/dashboard/manage-users.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo" onclick="window.location.href='../../index.html'">Mulanui <span>Services</span></div>
+    
+    <!-- زر الثلاث شرايط (يظهر على الموبايل فقط) -->
+    <button class="mobile-menu-btn" id="menu-toggle-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+    <!-- القائمة الجانبية (Sidebar) -->
+    <aside class="sidebar" style="position: fixed; right: 0; top: 70px; width: 250px; background: var(--bg-card); height: calc(100vh - 70px); border-left: 1px solid var(--border-color); padding: 20px; overflow-y: auto;">
+        <ul class="sidebar-menu" id="sidebar-menu-items" style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
+            <!-- العناصر تتعبى تلقائياً بالجافا سكريبت -->
+        </ul>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="dashboard-container" style="margin-right: 270px; padding: 20px;">
+        <div class="welcome-box">
+            <div>
+                <h2 style="font-size: 22px; margin-bottom: 5px;">إدارة جميع الحسابات</h2>
+                <p style="color: var(--text-muted); font-size: 14px;">عرض وتحكم في كافة حسابات المستخدمين المسجلين بالنظام.</p>
+            </div>
+            <button class="logout-btn" onclick="logout()">تسجيل الخروج</button>
+        </div>
+        
+        <!-- زر إضافة حساب جديد وحقل البحث والفلترة -->
+        <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <div style="display: flex; gap: 10px; flex-grow: 1; max-width: 600px;">
+                <input type="text" id="search-input" placeholder="بحث باسم المستخدم، البريد الإلكتروني، أو اسم العرض..." oninput="filterUsers()" style="flex-grow: 1; background: #161b22; border: 1px solid #30363d; color: #fff; padding: 8px 12px; border-radius: 6px; font-family: 'Cairo', sans-serif;">
+                <select id="role-filter" onchange="filterUsers()" style="background: #161b22; border: 1px solid #30363d; color: #fff; padding: 8px 12px; border-radius: 6px; font-family: 'Cairo', sans-serif;">
+                    <option value="all">جميع الصلاحيات</option>
+                    <option value="founder">Founder</option>
+                    <option value="admin">Admin</option>
+                    <option value="provider">Provider</option>
+                    <option value="client">Client</option>
+                </select>
+            </div>
+            <button onclick="openAddUserModal()" style="background: #238636; color: #fff; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Cairo', sans-serif;">+ إضافة حساب جديد</button>
+        </div>
+
+        <div id="page-alert" class="page-alert"></div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID#</th>
+                        <th>اسم المستخدم</th>
+                        <th>اسم العرض</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>نوع الحساب (Role)</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="users-table-body">
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: var(--text-muted);">جاري تحميل الحسابات...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- نافذة (Modal) إضافة الحساب الجديد -->
+    <div id="addUserModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: #161b22; padding: 25px; border-radius: 8px; border: 1px solid #30363d; width: 400px; max-width: 90%; font-family: 'Cairo', sans-serif;">
+            <h3 style="color: #fff; margin-bottom: 15px; font-size: 16px;">إضافة حساب مستخدم جديد</h3>
+            
+            <div style="margin-bottom: 12px;">
+                <label style="color: #8b949e; display: block; margin-bottom: 5px; font-size: 13px;">اسم المستخدم (Username)</label>
+                <input type="text" id="new-username" style="width: 100%; background: #0d1117; border: 1px solid #30363d; color: #fff; padding: 8px; border-radius: 4px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <label style="color: #8b949e; display: block; margin-bottom: 5px; font-size: 13px;">البريد الإلكتروني</label>
+                <input type="email" id="new-email" style="width: 100%; background: #0d1117; border: 1px solid #30363d; color: #fff; padding: 8px; border-radius: 4px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <label style="color: #8b949e; display: block; margin-bottom: 5px; font-size: 13px;">كلمة المرور</label>
+                <input type="password" id="new-password" style="width: 100%; background: #0d1117; border: 1px solid #30363d; color: #fff; padding: 8px; border-radius: 4px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="color: #8b949e; display: block; margin-bottom: 5px; font-size: 13px;">صلاحية الحساب (Role)</label>
+                <select id="new-role" style="width: 100%; background: #0d1117; border: 1px solid #30363d; color: #fff; padding: 8px; border-radius: 4px; box-sizing: border-box;">
+                    <option value="client">Client</option>
+                    <option value="provider">Provider</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                <button onclick="closeAddUserModal()" style="background: #30363d; color: #fff; border: none; padding: 8px 14px; border-radius: 4px; cursor: pointer; font-family: 'Cairo', sans-serif;">إلغاء</button>
+                <button onclick="submitNewUser()" style="background: #238636; color: #fff; border: none; padding: 8px 14px; border-radius: 4px; cursor: pointer; font-weight: 600; font-family: 'Cairo', sans-serif;">حفظ وإنشاء</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

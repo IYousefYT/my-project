@@ -1,0 +1,395 @@
+/* ========================================================
+   1. المتغيرات العامة (CSS Variables)
+   ======================================================== */
+:root {
+    --bg-main: #0f111a;
+    --bg-card: #161925;
+    --border-color: #232738;
+    --primary-color: #5c80f6;
+    --primary-hover: #579af2;
+    --text-main: #ffffff;
+    --text-muted: #a0aec0;
+    --success-color: #34d399;
+}
+
+/* ========================================================
+   2. الإعدادات الأساسية والخطوط (Base Styles)
+   ======================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+/* ========================================================
+   3. شريط التنقل العلوي (Navbar)
+   ======================================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--text-main);
+    cursor: pointer;
+}
+
+.logo span {
+    color: var(--primary-color);
+}
+
+/* ========================================================
+   4. هيكل الداشبورد والحاويات الرئيسية (Layout)
+   ======================================================== */
+.dashboard-container {
+    margin-right: 270px;
+    padding: 40px 8%;
+    transition: 0.3s ease;
+}
+
+.welcome-box {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logout-btn {
+    background-color: #ef4444;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #dc2626;
+    transform: scale(1.05);
+}
+
+/* ========================================================
+   5. تنسيق الجداول (Tables & Containers)
+   ======================================================== */
+.table-container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    width: 100%;
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    text-align: right;
+}
+
+th, td {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: #1a1e2e;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+td {
+    font-size: 15px;
+}
+
+.action-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.action-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.nav-link-home {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
+}
+
+.nav-link-home:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(138, 43, 226, 0.5);
+}
+
+/* ========================================================
+   6. القائمة الجانبية (Sidebar & Submenus)
+   ======================================================== */
+.sidebar-category-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 6px 10px; 
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 10px; 
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    text-align: right;
+    font-family: 'Cairo', sans-serif;
+    border-radius: 6px;
+    transition: background 0.2s;
+    margin-bottom: 2px;
+}
+
+.sidebar-category-btn:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: #cbd5e1;
+}
+
+.sidebar-category-btn .arrow {
+    transition: transform 0.3s ease;
+    font-size: 10px;
+}
+
+.sidebar-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease-out, padding 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 2px; 
+    padding: 0 4px;
+}
+
+.sidebar-submenu.open {
+    max-height: 300px; 
+    padding: 2px 4px 4px 4px; 
+    transition: max-height 0.35s ease-in, padding 0.3s ease;
+}
+
+.sidebar-category-btn.active .arrow {
+    transform: rotate(180deg);
+}
+
+#sidebar-menu-items a {
+    padding: 5px 10px !important;
+    font-size: 12px !important;
+    border-radius: 4px;
+}
+
+/* ========================================================
+   7. الاستجابة للشاشات الصغيرة والموبايل (Responsive & Mobile Menu)
+   ======================================================== */
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+    z-index: 1100;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #cbd5e1;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: flex !important;
+    }
+
+    .navbar {
+        padding: 15px 5%;
+    }
+
+    .sidebar {
+        position: fixed !important;
+        right: -260px !important;
+        top: 0 !important;
+        height: 100vh !important;
+        width: 250px !important;
+        z-index: 1050 !important;
+        transition: right 0.35s ease-in-out !important;
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .sidebar.mobile-open {
+        right: 0 !important;
+    }
+
+    .dashboard-container {
+        margin-right: 0 !important;
+        padding: 20px 4% !important;
+    }
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
+
+/* ========================================================
+   8. نظام التنبيهات العصري (Toast Notifications)
+   ======================================================== */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.custom-toast {
+    background: #161b22;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 250px;
+    animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+}
+
+.custom-toast.success {
+    border-right: 4px solid #238636;
+}
+
+.custom-toast.error {
+    border-right: 4px solid #f85149;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+}
+
+/* ========================================================
+   9. حقول الإدخال والتنبيهات العامة (Form Elements & Page Alerts)
+   ======================================================== */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%238b949e' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: left 10px center !important;
+    padding-left: 30px !important;
+}
+
+.page-alert {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+    padding: 12px 16px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-alert.success {
+    background-color: #1f883d33;
+    border: 1px solid #238636;
+    color: #3fb950;
+}
+
+.page-alert.error {
+    background-color: #f8514933;
+    border: 1px solid #da3633;
+    color: #f85149;
+}
+
+.page-alert.show {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#img-preview:hover {
+    opacity: 0.85;
+    transform: scale(1.02);
+}
+
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}

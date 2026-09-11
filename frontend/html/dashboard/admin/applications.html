@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - الصفحة غير موجودة | Mulanui Services</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background-color: var(--bg-main, #0f172a);
+            color: #fff;
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .error-main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+        }
+        .error-container {
+            background: var(--bg-card, #1e293b);
+            border: 1px solid var(--border-color, #334155);
+            padding: 60px 50px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+        h1 { font-size: 80px; margin: 0; color: #5c80f6; font-weight: 900; }
+        h2 { font-size: 22px; margin: 15px 0; }
+        p { color: #94a3b8; font-size: 14px; margin-bottom: 25px; }
+        .home-btn {
+            background: #5c80f6;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: 0.2s;
+        }
+        .home-btn:hover { background: #4b6edb; }
+
+        /* تنسيقات القائمة الجانبية للموبايل والـ Overlay */
+        .mobile-menu-drawer {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100vh;
+            background-color: var(--bg-card, #161925);
+            border-left: 1px solid var(--border-color, #232738);
+            z-index: 1000;
+            transition: 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+        }
+        .mobile-menu-drawer.open {
+            right: 0;
+        }
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #232738;
+            padding-bottom: 15px;
+        }
+        .close-drawer-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .mobile-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .mobile-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .mobile-links a:hover {
+            background: rgba(92, 128, 246, 0.1);
+            color: #5c80f6;
+        }
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+            display: none;
+        }
+        .sidebar-overlay.active {
+            display: block;
+        }
+        /* قسم الحساب جوه المنيو */
+        .mobile-auth-section {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #232738;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- شريط التنقل (Navbar) المتكيف -->
+<header class="navbar">
+    <a class="logo" href="../../index.html">Mulanui <span>Services</span></a>
+    
+    <nav class="desktop-nav">
+        <a href="../../index.html">الرئيسية</a>
+        <a href="../../index.html#games">الألعاب</a>
+        <a href="../../index.html#services">الخدمات</a>
+    </nav>
+
+    <!-- الأزرار أو البروفايل ديناميكياً للديسكتوب -->
+    <div class="auth-buttons desktop-auth" id="nav-auth-container"></div>
+
+    <button class="mobile-menu-btn" id="menu-toggle-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+<!-- القائمة الجانبية للموبايل والـ Overlay -->
+<div class="sidebar-overlay" id="menuOverlay"></div>
+<div class="mobile-menu-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+        <span class="logo" style="font-size: 18px;">Mulanui <span>Services</span></span>
+        <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+    </div>
+    <ul class="mobile-links">
+        <li><a href="../../index.html">الرئيسية</a></li>
+        <li><a href="../../index.html#games">الألعاب</a></li>
+        <li><a href="../../index.html#services">الخدمات</a></li>
+    </ul>
+
+    <!-- الجزء الخاص بحالة تسجيل الدخول داخل قائمة الموبايل -->
+    <div class="mobile-auth-section" id="mobile-auth-container">
+        <!-- يتم تعبئتها عبر الجافاسكريبت -->
+    </div>
+</div>
+
+<!-- محتوى خطأ 404 -->
+<div class="error-main-content">
+    <div class="error-container">
+        <h1>404</h1>
+        <h2>الصفحة غير موجودة</h2>
+        <p>عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها.</p>
+        <a href="../../index.html" class="home-btn">العودة للرئيسية</a>
+    </div>
+</div>
+
+<!-- تذييل الصفحة (Footer) الموحد -->
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <div class="footer-logo">Mulanui <span>Services</span></div>
+            <p class="footer-desc">
+                وجهتك الأولى لخدمات ألعاب القاتشا باحترافية وأمان تام. نساعدك في تطوير حسابك وإنجاز المهام بسرعة.
+            </p>
+        </div>
+        
+        <div class="footer-col">
+            <h3>روابط سريعة</h3>
+            <ul>
+                <li><a href="../../index.html">الرئيسية</a></li>
+                <li><a href="../../index.html#games">الألعاب المتاحة</a></li>
+                <li><a href="../../index.html#services">الخدمات</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col" id="footer-auth-section">
+            <h3>حسابي</h3>
+            <ul>
+                <li><a href="../auth/login.html">تسجيل الدخول</a></li>
+                <li><a href="../auth/register.html">حساب جديد</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>جميع الحقوق محفوظة &copy; 2026 <span>Mulanui Services</span></p>
+    </div>
+</footer>
+
+<!-- كود JavaScript لتشغيل القائمة وحالة تسجيل الدخول للديسكتوب والموبايل معاً -->
+<script>
+    const API_URL = "http://127.0.0.1:8000";
+    const token = localStorage.getItem("token");
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        // 1. تفعيل القائمة الجانبية للموبايل
+        const menuToggleBtn = document.getElementById("menu-toggle-btn");
+        const mobileDrawer = document.getElementById("mobileDrawer");
+        const closeDrawerBtn = document.getElementById("closeDrawerBtn");
+        const menuOverlay = document.getElementById("menuOverlay");
+
+        function toggleMenu() {
+            if (mobileDrawer) mobileDrawer.classList.toggle("open");
+            if (menuOverlay) menuOverlay.classList.toggle("active");
+        }
+
+        if (menuToggleBtn) menuToggleBtn.addEventListener("click", toggleMenu);
+        if (closeDrawerBtn) closeDrawerBtn.addEventListener("click", toggleMenu);
+        if (menuOverlay) menuOverlay.addEventListener("click", toggleMenu);
+
+        // 2. تحديث الحساب (للديسكتوب والموبايل)
+        const navAuthContainer = document.getElementById("nav-auth-container");
+        const mobileAuthContainer = document.getElementById("mobile-auth-container");
+        const footerAuthSection = document.getElementById("footer-auth-section");
+
+        const handleLogout = (e) => {
+            e.preventDefault();
+            localStorage.removeItem("token");
+            window.location.reload();
+        };
+
+        if (!token) {
+            const guestHTML = `
+                <a href="../auth/login.html" class="btn-login" style="text-align: center; padding: 10px; background: #5c80f6; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;">تسجيل الدخول</a>
+                <a href="../auth/register.html" class="btn-register" style="text-align: center; padding: 10px; background: transparent; border: 1px solid #5c80f6; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;">حساب جديد</a>
+            `;
+            if (navAuthContainer) navAuthContainer.innerHTML = `<a href="../auth/login.html" class="btn-login">تسجيل الدخول</a> <a href="../auth/register.html" class="btn-register">حساب جديد</a>`;
+            if (mobileAuthContainer) mobileAuthContainer.innerHTML = guestHTML;
+            return;
+        }
+
+        try {
+            const res = await fetch(`${API_URL}/users/me`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+
+            if (!res.ok) throw new Error("Unauthorized");
+            const user = await res.json();
+
+            // قالب البروفايل للديسكتوب مع زر تسجيل الخروج (إيموجي الباب)
+        const desktopProfileHTML = `
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <a href="../dashboard/dashboard.html" class="user-profile-badge" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-main); background: var(--bg-card); padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border-color); transition: 0.3s;">
+                    <span style="width: 28px; height: 28px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--border-color); font-size: 14px;">
+                        ${user.avatar_url ? `<img src="${user.avatar_url}" style="width:100%; height:100%; object-fit:cover;">` : '👤'}
+                    </span>
+                    <span style="font-size: 14px; font-weight: 600;">${user.nickname || user.username}</span>
+                </a>
+                <a href="#" id="desktop-logout-btn" title="تسجيل الخروج" style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 50%; text-decoration: none; color: #ef4444; transition: 0.3s;" onmouseover="this.style.background='#ef4444'; this.style.color='#fff';" onmouseout="this.style.background='rgba(239, 68, 68, 0.1)'; this.style.color='#ef4444';">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+        `;
+
+            // قالب البروفايل والخروج داخل قائمة الموبايل
+            const mobileProfileHTML = `
+                <a href="../dashboard/dashboard.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-main); background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <span style="width: 32px; height: 32px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--border-color); font-size: 16px;">
+                        ${user.avatar_url ? `<img src="${user.avatar_url}" style="width:100%; height:100%; object-fit:cover;">` : '👤'}
+                    </span>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 14px; font-weight: 600;">${user.nickname || user.username}</span>
+                        <span style="font-size: 11px; color: var(--text-muted);">الملف الشخصي</span>
+                    </div>
+                </a>
+                <a href="#" id="mobile-logout-btn" style="text-align: center; padding: 10px; background: rgba(92, 128, 246, 0.1); color: var(--primary-color); border-radius: 8px; text-decoration: none; font-weight: 600; border: 1px solid rgba(92, 128, 246, 0.2);">تسجيل الخروج</a>
+            `;
+
+            if (navAuthContainer) navAuthContainer.innerHTML = desktopProfileHTML;
+            if (mobileAuthContainer) mobileAuthContainer.innerHTML = mobileProfileHTML;
+
+            // تفعيل أزرار تسجيل الخروج
+            const desktopLogoutBtn = document.getElementById("desktop-logout-btn");
+            if (desktopLogoutBtn) desktopLogoutBtn.addEventListener("click", handleLogout);
+
+            const mobileLogoutBtn = document.getElementById("mobile-logout-btn");
+            if (mobileLogoutBtn) mobileLogoutBtn.addEventListener("click", handleLogout);
+
+            if (footerAuthSection) {
+                footerAuthSection.innerHTML = `
+                    <h3>حسابي</h3>
+                    <ul>
+                        <li><a href="../dashboard/dashboard.html">الملف الشخصي / البروفايل</a></li>
+                        <li><a href="#" id="logout-btn" style="color: #ef4444;">تسجيل الخروج</a></li>
+                    </ul>
+                `;
+                document.getElementById("logout-btn").addEventListener("click", handleLogout);
+            }
+
+        } catch (err) {
+            localStorage.removeItem("token");
+            const guestHTML = `
+                <a href="../auth/login.html" class="btn-login" style="text-align: center; padding: 10px; background: #5c80f6; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;">تسجيل الدخول</a>
+                <a href="../auth/register.html" class="btn-register" style="text-align: center; padding: 10px; background: transparent; border: 1px solid #5c80f6; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;">حساب جديد</a>
+            `;
+            if (navAuthContainer) navAuthContainer.innerHTML = `<a href="../auth/login.html" class="btn-login">تسجيل الدخول</a> <a href="../auth/register.html" class="btn-register">حساب جديد</a>`;
+            if (mobileAuthContainer) mobileAuthContainer.innerHTML = guestHTML;
+        }
+    });
+</script>
+</body>
+</html>
